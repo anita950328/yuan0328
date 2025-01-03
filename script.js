@@ -1,15 +1,20 @@
-let title = document.getElementById("title");
-let content = document.getElementById("content");
-let btn = document.getElementById("btn");
-let list = document.getElementById("list");
+const sections = document.querySelectorAll('section');
+const navLinks = document.querySelectorAll('nav a');
 
-btn.addEventListener("click", addNews);
+window.addEventListener('scroll', () => {
+  let current = '';
 
-function addNews() {
-  list.innerHTML += `
-    <div class="news">
-        <h2>${title.value}</h2>
-        <p>${content.value}</p><hr>
-    </div>
-    `;
-}
+  sections.forEach((section) => {
+    const sectionTop = section.offsetTop - 60; 
+    if (scrollY >= sectionTop) {
+      current = section.getAttribute('id');
+    }
+  });
+
+  navLinks.forEach((link) => {
+    link.classList.remove('active');
+    if (link.getAttribute('href').includes(current)) {
+      link.classList.add('active');
+    }
+  });
+});
